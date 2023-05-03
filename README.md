@@ -1,0 +1,2 @@
+# MudBlazorTemplate
+MudBlazor Template Project
