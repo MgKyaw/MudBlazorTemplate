@@ -1,0 +1,33 @@
+﻿@page "/messagebox"
+
+<PageTitle>Sub Menu 1</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Mud Message Box</MudText>
+
+<MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="OnButtonClicked">Open Message Box</MudButton>
+
+<MudChip>@state</MudChip>
+
+<MudMessageBox @ref="mbox" Title="Info" CancelText="Cancel">
+    <MessageContent>
+        Hello <b><i>Message Box</i></b> is opened!
+    </MessageContent>
+    <YesButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Info" StartIcon="@Icons.Material.Filled.Info">OK!</MudButton>
+    </YesButton>
+</MudMessageBox>
+
+@code {
+    [Inject]
+    private IDialogService DialogService { get; set; }
+
+    MudMessageBox mbox { get; set; }
+    string state = "Message box hasn't been opened yet";
+
+    private async void OnButtonClicked()
+    {
+        bool? result = await mbox.Show();
+        state = result == null ? "Canceled" : "OK!";
+        StateHasChanged();
+    }
+}
